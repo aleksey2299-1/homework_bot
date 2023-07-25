@@ -31,7 +31,7 @@ HOMEWORK_VERDICTS = {
 
 
 def check_tokens():
-    '''Токены должны быть не пустые.'''
+    """Токены должны быть."""
     if PRACTICUM_TOKEN is None:
         logging.critical('Отсутствует обязательная переменная окружения: '
                          '"PRACTICUM_TOKEN". Программа '
@@ -50,10 +50,7 @@ def check_tokens():
 
 
 def send_message(bot, message):
-    '''
-    Пытается отправить сообщение. Если сообдение пустое,
-    то вызывается исключение.
-    '''
+    """Отправка непустого сообщения. Пустое логируется."""
     try:
         logging.debug(f'Попытка отправить сообщение "{message}"')
         bot.send_message(TELEGRAM_CHAT_ID, message)
@@ -63,7 +60,7 @@ def send_message(bot, message):
 
 
 def get_api_answer(timestamp):
-    '''Проверка ответа от сервера.'''
+    """Проверка ответа от сервера."""
     try:
         response = requests.get(
             ENDPOINT,
@@ -83,7 +80,7 @@ def get_api_answer(timestamp):
 
 
 def check_response(response):
-    '''Проверка валидности данных.'''
+    """Проверка валидности данных."""
     if type(response) != dict:
         logging.error('Ответ от сервера ожидается в виде dict, '
                       f'а получен {type(response)}')
@@ -111,7 +108,7 @@ def check_response(response):
 
 
 def parse_status(homework):
-    '''Создание текста сообщения.'''
+    """Создание текста сообщения."""
     if 'homework_name' not in homework:
         logging.error('Отсутсвует ключ "homework_name"')
         raise Exception('Отсутсвует ключ "homework_name"')
@@ -131,7 +128,6 @@ def parse_status(homework):
 
 def main():
     """Основная логика работы бота."""
-
     try:
         check_tokens()
     except Exception:
